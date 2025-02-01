@@ -66,9 +66,11 @@
                 <form id="formEvento">
                     <div class="mb-3">
                         <label for="nomeEvento" class="form-label">Nome do evento</label>
-                        <input type="text" class="form-control" id="nomeEvento" placeholder="Digite o nome do evento"
-                            required>
-                    </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="nomeEvento" placeholder="Digite o nome do evento" required>
+                            <button type="button" class="btn btn-secondary" style="width: 100px;" id="gerarNomeEvento">Gerar Nome</button>
+                        </div>
+                    </div>                    
 
                     <div class="mb-3">
                         <label for="dataInicio" class="form-label">Data de início</label>
@@ -160,7 +162,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-danger w-100">Cadastrar Evento</button>
-                </form>
+                </form>
             </div>
         </div>
     </div>
