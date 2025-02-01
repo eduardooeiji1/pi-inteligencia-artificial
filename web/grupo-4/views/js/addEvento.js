@@ -124,3 +124,65 @@ function exibirAlerta(tipo, mensagem) {
 
 const formularioEvento = document.querySelector('#formEvento');
 formularioEvento.addEventListener('submit', postEvent);
+
+document.getElementById("gerarNomeEvento").addEventListener("click", async function () {
+    const categoria = document.getElementById("categoria").value;
+    const descricao = document.getElementById("descricao").value;
+    const botao = document.getElementById("gerarNomeEvento");
+
+    if (!categoria || !descricao) {
+        exibirAlerta("warning", "Preencha a categoria e a descrição antes de gerar um nome.");
+        return;
+    }
+
+    botao.disabled = true;
+    botao.innerText = "Gerando...";
+
+    try {
+        const resposta = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer Sua Chave API"
+            },
+            body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [
+                    { 
+                        role: "system", 
+                        content: "Você é um assistente especializado em criar nomes criativos e cativantes para eventos. Sempre responda em português do Brasil." 
+                    },
+                    { 
+                        role: "user", 
+                        content: `Crie um nome curto, impactante e memorável para um evento. O nome deve estar em português e refletir a essência do evento. 
+                        Aqui estão os detalhes:
+                        - *Categoria*: ${categoria}
+                        - *Descrição*: ${descricao}
+                        - *Exemplo de nomes bem criados*: "Festival das Cores", "Noite do Rock", "Corrida do Amanhã", "Feira Criativa", "Teatro Encantado".
+                        - *Regras*:
+                          - Use palavras chamativas e relevantes para o tema.
+                          - O nome deve soar natural para o público brasileiro.
+                          - Evite termos genéricos ou sem conexão com o evento.
+                        - Retorne apenas o nome do evento, sem explicações adicionais.`
+                    }
+                ],
+                max_tokens: 15
+            })
+        });
+
+        const data = await resposta.json();
+
+        if (resposta.ok && data.choices?.length > 0) {
+            document.getElementById("nomeEvento").value = data.choices[0].message.content.trim();
+        } else {
+            console.error("Erro na resposta da API:", data);
+            exibirAlerta("error", data.error?.message || "Erro ao gerar nome.");
+        }
+    } catch (erro) {
+        console.error("Erro ao chamar API:", erro);
+        exibirAlerta("error", "Erro ao conectar com a API da OpenAI.");
+    } finally {
+        botao.disabled = false;
+        botao.innerText = "Gerar Nome";
+    }
+});
