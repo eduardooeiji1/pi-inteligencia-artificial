@@ -187,7 +187,7 @@ document.getElementById("cep").addEventListener("blur", function () {
     }
 });
 
-handleSubmit('loginForm', 'http://localhost:3000/login', 'loginMessage');
-handleSubmit('loginOrgForm', 'http://localhost:3000/loginOrganizador', 'loginOrgMessage');
-handleSubmit('signupForm', 'http://localhost:3000/signup', 'signupMessage');
-handleSubmit('signupOrgForm', 'http://localhost:3000/organizador', 'signupOrgMessage');
+handleSubmit('loginForm', 'http://localhost:3004/login', 'loginMessage');
+handleSubmit('loginOrgForm', 'http://localhost:3004/loginOrganizador', 'loginOrgMessage');
+handleSubmit('signupForm', 'http://localhost:3004/signup', 'signupMessage');
+handleSubmit('signupOrgForm', 'http://localhost:3004/organizador', 'signupOrgMessage');
