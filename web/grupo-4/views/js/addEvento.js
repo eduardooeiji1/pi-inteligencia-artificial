@@ -36,7 +36,7 @@ async function postEvent(event) {
     event.preventDefault();
 
     const eventosEndpoint = '/eventos';
-    const URLCompleta = `http://localhost:3000${eventosEndpoint}`;
+    const URLCompleta = `http://localhost:3004${eventosEndpoint}`;
 
     const token = localStorage.getItem('token');
     if (!token) {
